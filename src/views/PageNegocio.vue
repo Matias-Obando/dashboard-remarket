@@ -1,37 +1,200 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Negocio - Simulación realtime</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <ion-content class="fit-content">
+      <section class="dashboard-shell">
+        <div class="top-cards">
+          <article v-for="(item, i) in topCards" :key="i" class="tile metric">
+            <p>{{ item.label }}</p>
+            <h3>{{ item.value }}</h3>
+            <small>{{ item.delta }}</small>
+          </article>
+        </div>
 
-    <ion-content class="ion-padding">
-      <h2 style="text-align:center; margin: 16px 0;">Gráfico en tiempo real (simulado)</h2>
+        <div class="middle-grid">
+          <article class="tile tile-big">
+            <div class="tile-head">
+              <h4>Total Users</h4>
+              <small>Este ano vs ano pasado</small>
+            </div>
+            <ApexMiniArea :categories="months" :values="usersSeries" label="Usuarios" :height="190" />
+          </article>
 
-      <div class="controls" style="display:flex; gap:12px; justify-content:center; margin-bottom:12px;">
-        <ion-button @click="start" color="primary">Iniciar</ion-button>
-        <ion-button @click="stop" color="medium">Detener</ion-button>
-        <ion-button @click="pushOne" color="tertiary">Añadir punto</ion-button>
-      </div>
+          <article class="tile tile-small">
+            <h4>Traffic by Website</h4>
+            <ul class="list-lines">
+              <li v-for="(site, i) in trafficSites" :key="i">
+                <span>{{ site.name }}</span>
+                <strong>{{ site.value }}</strong>
+              </li>
+            </ul>
+          </article>
+        </div>
 
-      <div style="max-width:1000px; margin: 0 auto;">
-        <RealtimeBarChart />
-      </div>
+        <div class="bottom-grid">
+          <article class="tile">
+            <h4>Traffic by Device</h4>
+            <ChartJSWrapper :labels="deviceLabels" :values="deviceValues" dataset-label="Sesiones" :height="170" />
+          </article>
+
+          <article class="tile">
+            <h4>Traffic by Location</h4>
+            <EChartDonut :data="countryShare" :height="170" :colors="countryColors" />
+          </article>
+        </div>
+      </section>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue';
-import RealtimeBarChart from '../components/RealtimeBarChart.vue';
-import { useRealtimeStore } from '../store/useRealtimeStore';
+import ChartJSWrapper from '../components/ChartJSWrapper.vue';
+import ApexMiniArea from '../components/ApexMiniArea.vue';
+import EChartDonut from '../components/EChartDonut.vue';
 
-const store = useRealtimeStore();
-function start() { store.startSimulation(1500); }
-function stop() { store.stopSimulation(); }
-function pushOne() { store.pushPoint(); }
+const topCards = [
+  { label: 'Views', value: '7,265', delta: '+11.01%' },
+  { label: 'Visits', value: '3,671', delta: '-0.03%' },
+  { label: 'New Users', value: '256', delta: '+15.03%' },
+  { label: 'Active Users', value: '2,318', delta: '+6.08%' }
+];
 
-onMounted(() => { start(); });
-onBeforeUnmount(() => { stop(); });
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+const usersSeries = [12, 14, 13, 24, 28, 22, 26];
+
+const trafficSites = [
+  { name: 'Google', value: '31%' },
+  { name: 'YouTube', value: '22%' },
+  { name: 'Instagram', value: '16%' },
+  { name: 'Pinterest', value: '12%' },
+  { name: 'Facebook', value: '11%' },
+  { name: 'Twitter', value: '8%' }
+];
+
+const deviceLabels = ['Linux', 'Mac', 'iOS', 'Windows', 'Android', 'Other'];
+const deviceValues = [17, 30, 22, 34, 13, 26];
+
+const countryShare = [
+  { name: 'United States', value: 52.1 },
+  { name: 'Canada', value: 22.8 },
+  { name: 'Mexico', value: 13.9 },
+  { name: 'Other', value: 11.2 }
+];
+
+const countryColors = ['#6d28d9', '#2563eb', '#14b8a6', '#f59e0b'];
 </script>
+
+<style scoped>
+.dashboard-shell {
+  display: grid;
+  gap: 10px;
+  padding: 2px;
+}
+
+.top-cards {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.middle-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 3fr 1fr;
+}
+
+.bottom-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.tile {
+  background: #ffffff;
+  border: 1px solid #eadff9;
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 8px 22px rgba(86, 46, 170, 0.07);
+}
+
+.metric p {
+  margin: 0;
+  color: #7a6f90;
+  font-size: 13px;
+}
+
+.metric h3 {
+  margin: 4px 0;
+  color: #241738;
+  font-size: clamp(18px, 2.4vw, 28px);
+}
+
+.metric small {
+  color: #6d28d9;
+}
+
+h4 {
+  margin: 0 0 8px;
+  color: #241738;
+  font-size: 14px;
+}
+
+.tile-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.tile-head small {
+  color: #7b6b97;
+}
+
+.list-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.list-lines li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed #eadff9;
+  padding-bottom: 6px;
+  color: #403554;
+}
+
+@media (min-width: 1024px) {
+  .fit-content {
+    --overflow: hidden;
+  }
+
+  .dashboard-shell {
+    min-height: calc(100vh - 132px);
+    grid-template-rows: auto 1fr 1fr;
+  }
+}
+
+@media (max-width: 1200px) {
+  .top-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .middle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .top-cards {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
