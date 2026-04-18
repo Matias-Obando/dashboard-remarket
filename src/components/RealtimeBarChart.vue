@@ -23,14 +23,15 @@ import { useRealtimeStore } from '../store/useRealtimeStore';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const store = useRealtimeStore();
+const MAX_VISIBLE_POINTS = 12;
 
 /* Tipado explícito: ChartData<'bar', number[], string> */
 const chartData = computed<ChartData<'bar', number[], string>>(() => ({
-  labels: store.labels.slice(-12),
+  labels: store.labels.slice(-MAX_VISIBLE_POINTS),
   datasets: [
     {
       label: 'Usuarios activos',
-      data: store.values.slice(-12),
+      data: store.values.slice(-MAX_VISIBLE_POINTS),
       backgroundColor: '#6d28d9',
       borderRadius: 6,
       barPercentage: 0.7
