@@ -24,28 +24,20 @@
 
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount } from 'vue';
+import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import RealtimeBarChart from '../components/RealtimeBarChart.vue';
 import { useRealtimeStore } from '../store/useRealtimeStore';
 
 const store = useRealtimeStore();
 
 function start() {
-  store.startSimulation(1500); // cada 1.5s
+  store.start(1500); // cada 1.5s
 }
 function stop() {
-  store.stopSimulation();
+  store.stop();
 }
 function pushOne() {
-  // función utilitaria para añadir manualmente un punto
-  // reutiliza la lógica interna: accedemos directamente a labels/values
-  const now = new Date();
-  store.labels.push(now.toLocaleTimeString());
-  store.values.push(Math.round(10 + Math.random() * 90));
-  // limitamos a 12 puntos (igual que en store)
-  if (store.labels.length > 12) {
-    store.labels.shift();
-    store.values.shift();
-  }
+  store.push();
 }
 
 onMounted(() => {

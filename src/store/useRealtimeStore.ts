@@ -8,7 +8,7 @@ export const useRealtimeStore = defineStore('realtime', () => {
 
   const randomValue = () => Math.round(20 + Math.random() * 80);
 
-  function pushPoint() {
+  function push() {
     const now = new Date();
     labels.value.push(now.toLocaleTimeString());
     values.value.push(randomValue());
@@ -16,15 +16,19 @@ export const useRealtimeStore = defineStore('realtime', () => {
     if (labels.value.length > maxPoints) { labels.value.shift(); values.value.shift(); }
   }
 
-  function startSimulation(intervalMs = 2000) {
-    stopSimulation();
-    if (labels.value.length === 0) for (let i=0;i<6;i++) pushPoint();
-    timer = window.setInterval(pushPoint, intervalMs);
+  function start(intervalMs = 2000) {
+    stop();
+    if (labels.value.length === 0) for (let i = 0; i < 6; i++) push();
+    timer = window.setInterval(push, intervalMs);
   }
 
-  function stopSimulation() {
+  function stop() {
     if (timer) { clearInterval(timer); timer = undefined; }
   }
 
-  return { labels, values, startSimulation, stopSimulation, pushPoint };
+  const pushPoint = push;
+  const startSimulation = start;
+  const stopSimulation = stop;
+
+  return { labels, values, start, stop, push, startSimulation, stopSimulation, pushPoint };
 });

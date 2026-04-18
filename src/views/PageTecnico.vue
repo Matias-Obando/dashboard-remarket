@@ -31,6 +31,17 @@
 
 <script setup>
 import { ref } from 'vue';
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonPage,
+  IonTitle,
+  IonToolbar
+} from '@ionic/vue';
 
 /* Datos mock locales (tu compañero puede sustituir por la store o axios) */
 const items = ref([

@@ -44,6 +44,18 @@
 
 <script setup>
 import { ref } from 'vue';
+import {
+  IonAccordion,
+  IonAccordionGroup,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonPage,
+  IonTitle,
+  IonToolbar
+} from '@ionic/vue';
 
 /* Datos mock para la vista KPIs - tu compañero puede sustituirlos por la store/axios */
 const negocioItems = ref([

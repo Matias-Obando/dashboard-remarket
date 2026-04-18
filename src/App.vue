@@ -11,6 +11,7 @@
 </template>
 
 <script setup>
+import { IonApp } from '@ionic/vue';
 import Sidebar from './components/AppSidebar.vue';
 import Topbar from './components/AppTopbar.vue';
 </script>

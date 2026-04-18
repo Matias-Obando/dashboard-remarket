@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper">
-    <Bar :chart-data="chartData" :chart-options="chartOptions" />
+    <Bar :data="chartData" :options="chartOptions" />
   </div>
 </template>
 
@@ -26,11 +26,11 @@ const store = useRealtimeStore();
 
 /* Tipado explícito: ChartData<'bar', number[], string> */
 const chartData = computed<ChartData<'bar', number[], string>>(() => ({
-  labels: Array.from(store.labels || []),
+  labels: store.labels.slice(-12),
   datasets: [
     {
       label: 'Usuarios activos',
-      data: Array.from(store.values || []),
+      data: store.values.slice(-12),
       backgroundColor: '#6d28d9',
       borderRadius: 6,
       barPercentage: 0.7
