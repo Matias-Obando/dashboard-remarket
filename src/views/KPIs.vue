@@ -1,25 +1,16 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>KPIs</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
+    <ion-header><ion-toolbar><ion-title>KPIs</ion-title></ion-toolbar></ion-header>
     <ion-content class="ion-padding">
       <h2>KPIs de Negocio</h2>
 
       <ion-accordion-group>
         <ion-accordion v-for="(item, idx) in negocioItems" :key="idx" :value="`neg-${idx}`">
           <ion-item slot="header" lines="none">
-            <ion-label>
-              {{ idx + 1 }} - {{ item.title }}
-            </ion-label>
+            <ion-label>{{ idx + 1 }} - {{ item.title }}</ion-label>
             <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
           </ion-item>
-          <div class="ion-padding" slot="content">
-            {{ item.content }}
-          </div>
+          <div class="ion-padding" slot="content">{{ item.content }}</div>
         </ion-accordion>
       </ion-accordion-group>
 
@@ -28,14 +19,10 @@
       <ion-accordion-group>
         <ion-accordion v-for="(item, idx) in tecnicoItems" :key="idx" :value="`tec-${idx}`">
           <ion-item slot="header" lines="none">
-            <ion-label>
-              {{ idx + 1 }} - {{ item.title }}
-            </ion-label>
+            <ion-label>{{ idx + 1 }} - {{ item.title }}</ion-label>
             <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
           </ion-item>
-          <div class="ion-padding" slot="content">
-            {{ item.content }}
-          </div>
+          <div class="ion-padding" slot="content">{{ item.content }}</div>
         </ion-accordion>
       </ion-accordion-group>
     </ion-content>
@@ -44,8 +31,6 @@
 
 <script setup>
 import { ref } from 'vue';
-
-/* Datos mock para la vista KPIs - tu compañero puede sustituirlos por la store/axios */
 const negocioItems = ref([
   { title: 'Ventas últimas 24h', content: 'Visitas: 1200 — Ventas: 34 — Conversión: 2.8%' },
   { title: 'Tasa de conversión', content: 'Conversión por canal: Orgánico 3.1%, Ads 1.9%' },
@@ -62,13 +47,3 @@ const tecnicoItems = ref([
   { title: 'Despliegues', content: 'Último deploy: 2026-04-15 12:34 by CI' }
 ]);
 </script>
-
-<style scoped>
-ion-content {
-  --background: var(--ion-background-color, #fff);
-}
-h2 {
-  margin: 12px 0;
-  font-weight: 700;
-}
-</style>

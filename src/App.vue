@@ -11,18 +11,11 @@
 </template>
 
 <script setup>
-import Sidebar from './components/AppSidebar.vue';
-import Topbar from './components/AppTopbar.vue';
+import Sidebar from './components/Sidebar.vue';
+import Topbar from './components/Topbar.vue';
 </script>
 
 <style>
-.app-shell {
-  display: flex;
-  min-height: 100vh;
-}
-.main-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
+.app-shell { display: flex; min-height: 100vh; }
+.main-area { flex: 1; display: flex; flex-direction: column; }
 </style>

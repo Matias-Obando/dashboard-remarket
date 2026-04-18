@@ -13,17 +13,23 @@ export const useRealtimeStore = defineStore('realtime', () => {
     labels.value.push(now.toLocaleTimeString());
     values.value.push(randomValue());
     const maxPoints = 12;
-    if (labels.value.length > maxPoints) { labels.value.shift(); values.value.shift(); }
+    if (labels.value.length > maxPoints) {
+      labels.value.shift();
+      values.value.shift();
+    }
   }
 
   function startSimulation(intervalMs = 2000) {
     stopSimulation();
-    if (labels.value.length === 0) for (let i=0;i<6;i++) pushPoint();
+    if (labels.value.length === 0) for (let i = 0; i < 6; i++) pushPoint();
     timer = window.setInterval(pushPoint, intervalMs);
   }
 
   function stopSimulation() {
-    if (timer) { clearInterval(timer); timer = undefined; }
+    if (timer) {
+      clearInterval(timer);
+      timer = undefined;
+    }
   }
 
   return { labels, values, startSimulation, stopSimulation, pushPoint };
