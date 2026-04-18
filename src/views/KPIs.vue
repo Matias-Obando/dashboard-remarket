@@ -1,30 +1,40 @@
 <template>
   <ion-page>
-    <ion-header><ion-toolbar><ion-title>KPIs</ion-title></ion-toolbar></ion-header>
-    <ion-content class="ion-padding">
-      <h2>KPIs de Negocio</h2>
-
-      <ion-accordion-group>
-        <ion-accordion v-for="(item, idx) in negocioItems" :key="idx" :value="`neg-${idx}`">
-          <ion-item slot="header" lines="none">
-            <ion-label>{{ idx + 1 }} - {{ item.title }}</ion-label>
-            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
-          </ion-item>
-          <div class="ion-padding" slot="content">{{ item.content }}</div>
-        </ion-accordion>
-      </ion-accordion-group>
-
-      <h2 style="margin-top: 24px;">KPIs Técnicos</h2>
-
-      <ion-accordion-group>
-        <ion-accordion v-for="(item, idx) in tecnicoItems" :key="idx" :value="`tec-${idx}`">
-          <ion-item slot="header" lines="none">
-            <ion-label>{{ idx + 1 }} - {{ item.title }}</ion-label>
-            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
-          </ion-item>
-          <div class="ion-padding" slot="content">{{ item.content }}</div>
-        </ion-accordion>
-      </ion-accordion-group>
+    <ion-content class="kpis-content">
+      <section class="kpis-shell">
+        <h2 class="section-title">KPIs de Negocio</h2>
+        <ion-accordion-group :multiple="true">
+          <ion-accordion
+            v-for="(item, idx) in negocioItems"
+            :key="`neg-${idx}`"
+            :value="`neg-${idx}`"
+          >
+            <ion-item slot="header" lines="full" class="kpi-header-item">
+              <ion-label>{{ idx + 1 }}. {{ item.title }}</ion-label>
+            </ion-item>
+            <div class="kpi-content" slot="content">
+              {{ item.content }}
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+        <section class="section-spacing">
+          <h2 class="section-title">KPIs Técnicos</h2>
+          <ion-accordion-group :multiple="true">
+            <ion-accordion
+              v-for="(item, idx) in tecnicoItems"
+              :key="`tec-${idx}`"
+              :value="`tec-${idx}`"
+            >
+              <ion-item slot="header" lines="full" class="kpi-header-item">
+                <ion-label>{{ idx + 1 }}. {{ item.title }}</ion-label>
+              </ion-item>
+              <div class="kpi-content" slot="content">
+                {{ item.content }}
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </section>
+      </section>
     </ion-content>
   </ion-page>
 </template>
@@ -47,3 +57,62 @@ const tecnicoItems = ref([
   { title: 'Despliegues', content: 'Último deploy: 2026-04-15 12:34 by CI' }
 ]);
 </script>
+
+<style scoped>
+.kpis-content {
+  --background: linear-gradient(180deg, #f8f5ff 0%, #f3f5fb 100%);
+}
+
+.kpis-shell {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 12px;
+}
+
+.section-title {
+  margin: 0 0 12px;
+  color: #241738;
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.section-spacing {
+  margin-top: 26px;
+}
+
+.kpi-header-item {
+  --background: #ffffff;
+  --color: #241738;
+  --inner-padding-top: 8px;
+  --inner-padding-bottom: 8px;
+  --inner-padding-start: 12px;
+  --inner-padding-end: 12px;
+  border: 1px solid #eadff9;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 8px 22px rgba(86, 46, 170, 0.07);
+}
+
+.kpi-content {
+  background: #fbf8ff;
+  border: 1px solid #eadff9;
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+  color: #4a3e62;
+  padding: 12px 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .kpis-shell {
+    padding: 10px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+}
+</style>

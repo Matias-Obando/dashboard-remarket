@@ -1,7 +1,6 @@
 /// <reference types="vite/client" />
-import { DefineComponent } from 'vue';
-
 declare module '*.vue' {
-  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, any>;
+  import type { DefineComponent } from 'vue';
+  const component: DefineComponent<{}, {}, any>;
   export default component;
 }
