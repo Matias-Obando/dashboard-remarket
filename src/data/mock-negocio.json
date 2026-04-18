@@ -1,0 +1,4 @@
+[
+  { "id":1, "title":"IPhone 17 pro max 256 Gb", "price":1750, "image":"/assets/iphone.jpg", "meta":"Producto disponible" },
+  { "id":2, "title":"Nike dunk classic", "price":90, "image":"/assets/nike.jpg", "meta":"Producto disponible" }
+]
