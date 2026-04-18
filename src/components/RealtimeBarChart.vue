@@ -24,7 +24,6 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const store = useRealtimeStore();
 
-/* Tipado explícito: ChartData<'bar', number[], string> */
 const chartData = computed<ChartData<'bar', number[], string>>(() => ({
   labels: Array.from(store.labels || []),
   datasets: [
