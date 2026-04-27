@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <DashboardLayout titulo="Negocio">
-      <ion-grid>
+      <ion-grid class="dashboard-grid">
 
         <!-- FILA 1: 4 TARJETAS SPARK -->
         <ion-row>
@@ -10,7 +10,7 @@
               title="Vistas"
               :value="viewsValue.toLocaleString()"
               :icon="eyeOutline"
-              bgClass="gradient-purple"
+              bgClass="gradient-violet"
               :chartOptions="sparkOptions"
               :chartSeries="viewsSeries"
             />
@@ -21,7 +21,7 @@
               title="Visitas"
              :value="visitsValue.toLocaleString()"
               :icon="navigateOutline"
-              bgClass="gradient-blue"
+              bgClass="gradient-cyan"
               :chartOptions="sparkOptions"
               :chartSeries="visitsSeries"
             />
@@ -32,7 +32,7 @@
               title="Nuevos Usuarios"
               :value="newUsersValue.toLocaleString()"
               :icon="personAddOutline"
-              bgClass="gradient-red"
+              bgClass="gradient-amber"
               :chartOptions="sparkOptions"
               :chartSeries="newUsersSeries"
             />
@@ -43,7 +43,7 @@
               title="Usuarios Activos"
              :value="activeUsersValue.toLocaleString()"
               :icon="peopleOutline"
-              bgClass="gradient-green"
+              bgClass="gradient-lime"
               :chartOptions="sparkOptions"
               :chartSeries="activeUsersSeries"
             />
@@ -53,24 +53,24 @@
         <!-- FILA 2: Total Users + Traffic Website -->
         <ion-row>
           <ion-col size="12" size-md="8">
-            <ion-card class="dark-card">
+            <ion-card class="dark-card total-users-card">
               <ion-card-header>
                 <ion-card-title>Total Usuarios</ion-card-title>
               </ion-card-header>
 
-          <ion-card-content style="height: 250px;">
+          <ion-card-content style="height: 240px;">
            <ApexMiniArea
             :categories="months"
             :values="usersValues"
             label="Usuarios Activos"
-            :height="190"
+            :height="200"
            />
           </ion-card-content>
             </ion-card>
           </ion-col>
 
-          <ion-col size="12" size-md="4">
-            <ion-card class="dark-card">
+          <ion-col size="12" size-md="4" class="traffic-col">
+            <ion-card class="dark-card traffic-card">
               <ion-card-header>
                 <ion-card-title>Tráfico por Website</ion-card-title>
               </ion-card-header>
@@ -97,24 +97,24 @@
         <!-- FILA 3: Device + Location -->
         <ion-row>
           <ion-col size="12" size-md="6">
-            <ion-card class="dark-card">
+            <ion-card class="dark-card device-card">
               <ion-card-header>
                 <ion-card-title>Tráfico por Dispositivos</ion-card-title>
               </ion-card-header>
 
-              <ion-card-content style="height: 250px;">
+              <ion-card-content style="height: 160px;">
                 <canvas ref="barChart"></canvas>
               </ion-card-content>
             </ion-card>
           </ion-col>
 
           <ion-col size="12" size-md="6">
-            <ion-card class="dark-card">
+            <ion-card class="dark-card location-card">
               <ion-card-header>
                 <ion-card-title>Tráfico por Localización</ion-card-title>
               </ion-card-header>
 
-              <ion-card-content style="height: 250px;">
+              <ion-card-content style="height: 160px;">
                 <div class="location-wrapper">
                   <div class="chart-box">
                     <canvas ref="donutChart"></canvas>
@@ -266,13 +266,11 @@ const usersValues = ref ([12, 14, 13, 24, 28, 22, 26]);
    TRAFFIC WEBSITE
 ---------------------------- */
 const trafficData = [
-  { name: "Google", value: 80, color: "#7c3aed" },
-  { name: "Instagram", value: 70, color: "#7c3aed" },
-  { name: "YouTube", value: 65, color: "#7c3aed" },
-  { name: "Facebook", value: 50, color: "#22c55e" },
-  { name: "Pinterest", value: 40, color: "#22c55e" },
-  { name: "Twitter", value: 35, color: "#22c55e" },
-  { name: "Tumblr", value: 25, color: "#9ca3af" }
+  { name: "Google", value: 80, color: "#6D28D9" },
+  { name: "Instagram", value: 70, color: "#14B8A6" },
+  { name: "YouTube", value: 65, color: "#F97316" },
+  { name: "Facebook", value: 50, color: "#10B981" },
+  { name: "Twitter", value: 35, color: "#EF4444" }
 ];
 
 /* ---------------------------
@@ -362,34 +360,76 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.dashboard-grid {
+  padding: 0;
+}
+
 .dark-card {
   background: #7247bd;
   border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 18px;
+  border-radius: 16px;
   box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+  margin: 0;
+}
+
+.total-users-card {
+  background: linear-gradient(180deg, #32245f 0%, #1f2244 100%);
+}
+
+.traffic-card {
+  width: 100%;
+  background: linear-gradient(180deg, #2b2f63 0%, #182247 100%);
+}
+
+.device-card {
+  background: linear-gradient(180deg, #21355f 0%, #172645 100%);
+}
+
+.location-card {
+  background: linear-gradient(180deg, #26304f 0%, #171f35 100%);
 }
 
 .dark-card ion-card-title {
   color: white;
   font-weight: 700;
+  font-size: 18px;
 }
 
 .dark-card ion-card-content {
   color: rgba(255,255,255,0.9);
+  padding-top: 6px;
+  padding-bottom: 10px;
+}
+
+.dark-card ion-card-header {
+  padding-bottom: 4px;
+}
+
+.dashboard-grid ion-row {
+  margin: 0;
+}
+
+.dashboard-grid ion-col {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.traffic-col {
+  display: flex;
 }
 
 /* Traffic by Website */
 .traffic-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .traffic-header {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  margin-bottom: 4px;
+  font-size: 12px;
+  margin-bottom: 2px;
   color: white;
 }
 
@@ -413,12 +453,12 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  gap: 20px;
+  gap: 12px;
 }
 
 .chart-box {
   width: 42%;
-  height: 180px;
+  height: 108px;
   flex-shrink: 0;
 }
 
@@ -427,14 +467,14 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 6px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 11px;
   color: white;
 }
 
@@ -445,11 +485,42 @@ onMounted(() => {
 }
 
 .name {
-  min-width: 95px;
+  min-width: 82px;
   opacity: 0.9;
 }
 
 .value {
   font-weight: 700;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    height: calc(100dvh - 128px);
+  }
+
+  .dashboard-grid ion-row {
+    margin-bottom: 0;
+  }
+
+  .traffic-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .traffic-card .traffic-list {
+    flex: 1;
+    justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 1023px) {
+  .traffic-col {
+    display: block;
+  }
+
+  .traffic-card {
+    height: auto;
+  }
 }
 </style>

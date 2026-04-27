@@ -11,7 +11,7 @@
 
     <apexchart
       width="100%"
-      height="70"
+      height="56"
       type="area"
       :options="chartOptions"
       :series="chartSeries"
@@ -39,7 +39,7 @@ defineProps<{
 <style scoped>
 .spark-card {
   border-radius: 18px;
-  padding: 16px;
+  padding: 12px;
   color: white;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
   overflow: hidden;
@@ -53,7 +53,7 @@ defineProps<{
 
 .spark-title {
   margin: 0;
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0.9;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -61,7 +61,7 @@ defineProps<{
 
 .spark-value {
   margin: 4px 0 0;
-  font-size: 30px;
+  font-size: clamp(24px, 2.1vw, 30px);
   font-weight: 800;
 }
 
@@ -88,5 +88,29 @@ defineProps<{
 
 .gradient-green {
   background: linear-gradient(135deg, #34d399, #065f46);
+}
+
+.gradient-cyan {
+  background: linear-gradient(135deg, #22d3ee, #0f766e);
+}
+
+.gradient-amber {
+  background: linear-gradient(135deg, #f59e0b, #92400e);
+}
+
+.gradient-violet {
+  background: linear-gradient(135deg, #8b5cf6, #312e81);
+}
+
+.gradient-lime {
+  background: linear-gradient(135deg, #a3e635, #166534);
+}
+
+.gradient-rose {
+  background: linear-gradient(135deg, #fb7185, #9f1239);
+}
+
+.gradient-slate {
+  background: linear-gradient(135deg, #334155, #0f172a);
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-content class="fit-content">
+    <ion-content class="fit-content dashboard-content">
       <section class="dashboard-shell">
         <div class="top-cards">
           <article v-for="(item, i) in topCards" :key="i" class="tile metric">
@@ -80,46 +80,46 @@ const incidentColors = ['#0ea5e9', '#22c55e', '#f97316', '#ef4444', '#64748b'];
 <style scoped>
 .dashboard-shell {
   display: grid;
-  gap: 10px;
-  padding: 2px;
+  gap: 8px;
+  padding: 0;
 }
 
 .top-cards {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .middle-grid {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   grid-template-columns: 3fr 1fr;
 }
 
 .bottom-grid {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   grid-template-columns: 1fr 1fr;
 }
 
 .tile {
   background: #ffffff;
   border: 1px solid #eadff9;
-  border-radius: 14px;
-  padding: 10px;
+  border-radius: 12px;
+  padding: 8px 10px;
   box-shadow: 0 8px 22px rgba(86, 46, 170, 0.07);
 }
 
 .metric p {
   margin: 0;
   color: #7a6f90;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .metric h3 {
-  margin: 4px 0;
+  margin: 2px 0;
   color: #241738;
-  font-size: clamp(18px, 2.4vw, 28px);
+  font-size: clamp(16px, 2vw, 24px);
 }
 
 .metric small {
@@ -127,9 +127,9 @@ const incidentColors = ['#0ea5e9', '#22c55e', '#f97316', '#ef4444', '#64748b'];
 }
 
 h4 {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   color: #241738;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 @media (min-width: 1024px) {
@@ -138,8 +138,8 @@ h4 {
   }
 
   .dashboard-shell {
-    min-height: calc(100vh - 132px);
-    grid-template-rows: auto 1fr 1fr;
+    height: calc(100dvh - 132px);
+    grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 
@@ -152,6 +152,7 @@ h4 {
 
 .tile-head small {
   color: #7b6b97;
+  font-size: 12px;
 }
 
 @media (max-width: 1200px) {

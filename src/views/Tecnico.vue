@@ -1,16 +1,16 @@
 <template>
   <ion-page>
     <DashboardLayout titulo="Técnico">
-      <ion-grid>
+      <ion-grid class="dashboard-grid">
 
         <!-- FILA 1: 4 TARJETAS SPARK -->
-        <ion-row>
+        <ion-row class="row-top">
           <ion-col size="12" size-md="3">
             <SparkCard
               title="Errores"
               :value="errorsValue.toString()"
               :icon="bugOutline"
-              bgClass="gradient-purple"
+              bgClass="gradient-rose"
               :chartOptions="sparkOptions"
               :chartSeries="errorsSeries"
             />
@@ -21,7 +21,7 @@
               title="Usuarios Online"
               :value="onlineUsersValue.toLocaleString()"
               :icon="peopleOutline"
-              bgClass="gradient-blue"
+              bgClass="gradient-violet"
               :chartOptions="sparkOptions"
               :chartSeries="activeUsersSeries"
             />
@@ -32,7 +32,7 @@
               title="Latencia API"
               :value="latencyValue + ' ms'"
               :icon="speedometerOutline"
-              bgClass="gradient-red"
+              bgClass="gradient-slate"
               :chartOptions="sparkOptions"
               :chartSeries="latencySeries"
             />
@@ -43,7 +43,7 @@
               title="Peticiones API"
               :value="(apiRequestsValue / 1000).toFixed(1) + 'K'"
               :icon="cloudOutline"
-              bgClass="gradient-green"
+              bgClass="gradient-cyan"
               :chartOptions="sparkOptions"
               :chartSeries="apiRequestsSeries"
             />
@@ -51,21 +51,21 @@
         </ion-row>
 
         <!-- FILA 2: Rendimiento Servidor + Uso Recursos -->
-        <ion-row>
+        <ion-row class="row-middle">
           <ion-col size="12" size-md="8">
-            <ion-card class="dark-card">
+            <ion-card class="dark-card server-card fill-card">
               <ion-card-header>
                 <ion-card-title>Rendimiento del Servidor</ion-card-title>
               </ion-card-header>
 
-              <ion-card-content style="height: 250px;">
+              <ion-card-content class="server-chart-content">
                 <canvas ref="serverChart"></canvas>
               </ion-card-content>
             </ion-card>
           </ion-col>
 
-          <ion-col size="12" size-md="4">
-            <ion-card class="dark-card">
+          <ion-col size="12" size-md="4" class="resource-col">
+            <ion-card class="dark-card resource-card fill-card">
               <ion-card-header>
                 <ion-card-title>Uso de Recursos</ion-card-title>
               </ion-card-header>
@@ -94,9 +94,9 @@
         </ion-row>
 
         <!-- FILA 3: Logs + Estado Servicios -->
-        <ion-row>
+        <ion-row class="row-bottom">
           <ion-col size="12" size-md="6">
-            <ion-card class="dark-card">
+            <ion-card class="dark-card logs-card fill-card">
               <ion-card-header>
                 <ion-card-title>Logs Recientes</ion-card-title>
               </ion-card-header>
@@ -115,7 +115,7 @@
           </ion-col>
 
           <ion-col size="12" size-md="6">
-            <ion-card class="dark-card">
+            <ion-card class="dark-card services-card fill-card">
               <ion-card-header>
                 <ion-card-title>Estado de Servicios</ion-card-title>
               </ion-card-header>
@@ -238,10 +238,10 @@ let serverChartInstance: Chart | null = null;
    RESOURCE DATA (DYNAMIC)
 ---------------------------- */
 const resourceData = ref([
-  { name: "CPU", value: 68, color: "#7c3aed" },
-  { name: "RAM", value: 72, color: "#a78bfa" },
-  { name: "Disco", value: 54, color: "#22c55e" },
-  { name: "Red", value: 30, color: "#9ca3af" }
+  { name: "CPU", value: 68, color: "#60A5FA" },
+  { name: "RAM", value: 72, color: "#F59E0B" },
+  { name: "Disco", value: 54, color: "#22C55E" },
+  { name: "Red", value: 30, color: "#F97316" }
 ]);
 
 /* ---------------------------
@@ -390,34 +390,84 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.dashboard-grid {
+  padding: 0;
+}
+
+.dashboard-grid ion-row {
+  margin: 0;
+}
+
+.dashboard-grid ion-col {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
 .dark-card {
   background: #7247bd;
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 18px;
   box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+  margin: 0;
+}
+
+.server-card {
+  background: linear-gradient(180deg, #26386c 0%, #172647 100%);
+}
+
+.resource-card {
+  width: 100%;
+  background: linear-gradient(180deg, #2b2f63 0%, #1a2348 100%);
+}
+
+.logs-card {
+  background: linear-gradient(180deg, #1d2e57 0%, #111a31 100%);
+}
+
+.services-card {
+  background: linear-gradient(180deg, #2d275c 0%, #17142f 100%);
 }
 
 .dark-card ion-card-title {
   color: white;
   font-weight: 700;
+  font-size: 18px;
 }
 
 .dark-card ion-card-content {
   color: rgba(255,255,255,0.9);
+  padding-top: 8px;
+  padding-bottom: 10px;
+}
+
+.dark-card ion-card-header {
+  padding-bottom: 4px;
+}
+
+.resource-col {
+  display: flex;
+}
+
+.fill-card {
+  width: 100%;
+}
+
+.server-chart-content {
+  height: 210px;
 }
 
 /* Recursos */
 .resource-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
 }
 
 .resource-header {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-size: 13px;
+  margin-bottom: 3px;
   color: white;
 }
 
@@ -439,23 +489,23 @@ onMounted(() => {
 .logs-box {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .log-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 13px;
+  gap: 8px;
+  font-size: 12px;
 }
 
 .log-tag {
   font-weight: 800;
-  font-size: 11px;
-  padding: 4px 8px;
+  font-size: 10px;
+  padding: 3px 8px;
   border-radius: 10px;
   color: white;
-  min-width: 60px;
+  min-width: 56px;
   text-align: center;
 }
 
@@ -479,13 +529,13 @@ onMounted(() => {
 .services-box {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .service-item {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .service-name {
@@ -495,9 +545,9 @@ onMounted(() => {
 
 .service-status {
   font-weight: 800;
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .service-status.online {
@@ -513,5 +563,65 @@ onMounted(() => {
 .service-status.down {
   background: rgba(239, 68, 68, 0.25);
   color: #fecaca;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    height: calc(100dvh - 80px);
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .row-middle,
+  .row-bottom {
+    min-height: 0;
+    align-items: stretch;
+  }
+
+  .row-middle ion-col,
+  .row-bottom ion-col {
+    display: flex;
+  }
+
+  .fill-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fill-card ion-card-content {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .row-middle .server-chart-content {
+    height: 100%;
+  }
+
+  .resource-card {
+    height: 100%;
+  }
+
+  .resource-card .resource-list {
+    flex: 1;
+    justify-content: space-evenly;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .resource-col {
+    display: block;
+  }
+
+  .dashboard-grid {
+    display: block;
+    height: auto;
+  }
+
+  .resource-card {
+    height: auto;
+  }
 }
 </style>
