@@ -21,18 +21,18 @@ defineEmits<{ (e: 'toggle-menu'): void }>();
   align-items: center;
   gap: 12px;
   padding: 10px 16px;
-  background: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid #eadff9;
+  background: rgba(15, 19, 36, 0.92);
+  border-bottom: 1px solid #2f3656;
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px rgba(104, 58, 191, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 }
 
 .menu-btn {
   width: 38px;
   height: 38px;
-  border: 1px solid #e1d6f4;
+  border: 1px solid #2f3656;
   border-radius: 10px;
-  background: #ffffff;
+  background: #171d31;
   display: grid;
   gap: 4px;
   place-content: center;
@@ -42,14 +42,14 @@ defineEmits<{ (e: 'toggle-menu'): void }>();
 .menu-btn span {
   width: 16px;
   height: 2px;
-  background: #6d28d9;
+  background: #c4b5fd;
   display: block;
 }
 
 h2 {
   margin: 0;
   font-size: 20px;
-  color: #241738;
+  color: #f3f4ff;
   margin-left: 2px;
 }
 

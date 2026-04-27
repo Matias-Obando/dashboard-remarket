@@ -1,2 +1,14 @@
 /* For information on how to create your own theme, please refer to:
 http://ionicframework.com/docs/theming/ */
+
+:root {
+	--rm-bg: #0b1020;
+	--rm-surface: #13182a;
+	--rm-surface-2: #1a2035;
+	--rm-surface-3: #20263d;
+	--rm-border: #2f3656;
+	--rm-text: #edf0ff;
+	--rm-text-soft: #aab2d4;
+	--rm-accent: #7c3aed;
+	--rm-accent-2: #a78bfa;
+}
