@@ -56,6 +56,7 @@
             <ion-card class="dark-card total-users-card">
               <ion-card-header>
                 <ion-card-title>Total Usuarios</ion-card-title>
+                <p style="font-size: 12px; color: #a8a8a8; margin: 8px 0 0 0;">Marzo: fallo en login | Junio: pico por "Operación Salida"</p>
               </ion-card-header>
 
           <ion-card-content style="height: 240px;">
@@ -192,10 +193,10 @@ Chart.register(
   BarElement
 );
 
-const viewsValue = ref(7265);
-const visitsValue = ref(3671);
-const newUsersValue = ref(156);
-const activeUsersValue = ref(2318);
+const viewsValue = ref(9405);
+const visitsValue = ref(4661);
+const newUsersValue = ref(254);
+const activeUsersValue = ref(2284);
 
 onMounted(() => {
   setInterval(() => {
@@ -215,9 +216,7 @@ onMounted(() => {
 
 });
 
-/* ---------------------------
-   SPARKLINE CONFIG (APEX)
----------------------------- */
+
 const sparkOptions = {
   chart: {
     sparkline: { enabled: true },
@@ -245,37 +244,24 @@ const sparkOptions = {
   }
 };
 
-const viewsSeries = [{ data: [25, 40, 30, 55, 45, 60, 50, 72] }];
-const visitsSeries = [{ data: [15, 22, 18, 30, 28, 35, 40, 45] }];
-const newUsersSeries = [{ data: [5, 8, 7, 10, 9, 14, 12, 18] }];
-const activeUsersSeries = [{ data: [20, 25, 22, 30, 28, 35, 33, 38] }];
+const viewsSeries = [{ data: [8200, 8900, 8500, 9100, 9300, 9200, 9405] }];
+const visitsSeries = [{ data: [4100, 4300, 4400, 4500, 4600, 4650, 4661] }];
+const newUsersSeries = [{ data: [210, 230, 240, 250, 260, 254, 254] }];
+const activeUsersSeries = [{ data: [2100, 2200, 2250, 2270, 2280, 2284, 2284] }];
 
-const months = ref (["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]);
+const months = ref (["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"]);
 
-const usersValues = ref ([12, 14, 13, 24, 28, 22, 26]);
-
-
-
-/* ---------------------------
-   TOTAL USERS  CHART
----------------------------- */
+const usersValues = ref ([8500, 8200, 7500, 7800, 8100, 9200, 8900]);
 
 
 
-/* ---------------------------
-   TRAFFIC WEBSITE
----------------------------- */
 const trafficData = [
   { name: "Google", value: 80, color: "#6D28D9" },
-  { name: "Instagram", value: 70, color: "#14B8A6" },
-  { name: "YouTube", value: 65, color: "#F97316" },
-  { name: "Facebook", value: 50, color: "#10B981" },
-  { name: "Twitter", value: 35, color: "#EF4444" }
+  { name: "Directo", value: 12, color: "#14B8A6" },
+  { name: "Otros", value: 8, color: "#F97316" }
 ];
 
-/* ---------------------------
-   BAR CHART
----------------------------- */
+
 const barChart = ref<HTMLCanvasElement | null>(null);
 
 onMounted(() => {
@@ -322,16 +308,13 @@ onMounted(() => {
   });
 });
 
-/* ---------------------------
-   DONUT CHART
----------------------------- */
+
 const donutChart = ref<HTMLCanvasElement | null>(null);
 
 const locationData = [
-  { name: "United States", value: 38.6, color: "#7c3aed" },
-  { name: "Canada", value: 22.5, color: "#22c55e" },
-  { name: "Mexico", value: 30.8, color: "#ffffff" },
-  { name: "Other", value: 8.1, color: "#9ca3af" }
+  { name: "Estados Unidos", value: 52.3, color: "#7c3aed" },
+  { name: "México", value: 35.7, color: "#22c55e" },
+  { name: "Otros", value: 12.0, color: "#9ca3af" }
 ];
 
 onMounted(() => {
