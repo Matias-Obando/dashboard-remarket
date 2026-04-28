@@ -23,7 +23,7 @@
                 </ion-item>
 
                 <div class="kpi-content" slot="content">
-                  <p>{{ item.content }}</p>
+                  <p v-html="item.content"></p>
                 </div>
               </ion-accordion>
             </ion-accordion-group>
@@ -47,7 +47,7 @@
                 </ion-item>
 
                 <div class="kpi-content" slot="content">
-                  <p>{{ item.content }}</p>
+                  <p v-html="item.content"></p>
                 </div>
               </ion-accordion>
             </ion-accordion-group>
@@ -76,46 +76,46 @@ import {
 const negocioItems = ref([
   {
     title: "Tráfico y ventas 24h",
-    content: "Vistas: 7.460 — Visitas: 3.735 — Ventas estimadas: 34 — Conversión media: 2.8%"
+    content: "<strong>S:</strong> Incrementar el volumen de transacciones diarias confirmadas\n<strong>M:</strong> De 850 a 1,200 ventas (incremento del 41%)\n<strong>A:</strong> Optimizando el flujo de checkout y reduciendo los errores de pago en Stripe\n<strong>R:</strong> Para maximizar los ingresos directos por comisiones de venta\n<strong>T:</strong> En los próximos 30 días"
   },
   {
     title: "Tasa de conversión por canal",
-    content: "Google/Orgánico lidera el volumen, mientras Instagram y YouTube sostienen el alcance y Facebook aporta conversión final."
+    content: "<strong>S:</strong> Mejorar la conversión del tráfico proveniente de Google (80% del total)\n<strong>M:</strong> Pasar de 3.2% al 4.5%\n<strong>A:</strong> Implementando mejoras de SEO técnico y descripciones automáticas por IA\n<strong>R:</strong> Aprovechar el alto volumen de tráfico orgánico actual\n<strong>T:</strong> Durante el presente trimestre"
   },
   {
     title: "Valor medio pedido",
-    content: "Ticket medio: 72.50€ | Objetivo: subir el importe por pedido sin bajar conversión."
+    content: "<strong>S:</strong> Aumentar el gasto promedio por usuario en cada transacción\n<strong>M:</strong> De 35€ a 45€ por pedido\n<strong>A:</strong> Crear un sistema de 'Cross-selling' (productos relacionados) en el carrito\n<strong>R:</strong> Aumentar la rentabilidad de cada usuario activo\n<strong>T:</strong> En los siguientes 60 días"
   },
   {
     title: "Producto y tráfico principal",
-    content: "Los productos más vistos deben convertirse mejor: iPhone 17, Nike y North Face funcionan como referencia de demanda."
+    content: "<strong>S:</strong> Mantener el liderazgo de 'Electrónica' como motor de la app\n<strong>M:</strong> Asegurar que el 60% de las vistas totales pertenezcan a esta categoría\n<strong>A:</strong> Lanzar campañas específicas de 'Renovación Tecnológica'\n<strong>R:</strong> Consolidar la identidad de marca como referente en tecnología usada\n<strong>T:</strong> Durante todo el semestre"
   },
   {
-    title: "Atención al cliente",
-    content: "Tickets abiertos: 12 | KPI de soporte para medir carga operativa y velocidad de respuesta."
+    title: "Atención al cliente (Satisfaction Score)",
+    content: "<strong>S:</strong> Recuperar el índice de satisfacción del usuario\n<strong>M:</strong> De 6.5 a 8.5 sobre 10\n<strong>A:</strong> Reparar el 'Email Service' que actualmente está Down\n<strong>R:</strong> Evitar la fuga de usuarios (Churn Rate) por falta de comunicación\n<strong>T:</strong> En los próximos 15 días"
   }
 ]);
 
 const tecnicoItems = ref([
   {
     title: "Tiempo de respuesta API",
-    content: "Latencia media: 210ms | p95: 450ms. KPI clave para asegurar una experiencia rápida y estable."
+    content: "<strong>S:</strong> Reducir la latencia media de respuesta de los servidores\n<strong>M:</strong> Mantenerla por debajo de 250ms (actualmente en 280ms)\n<strong>A:</strong> Optimizando las consultas a la base de datos y usando caché de borde\n<strong>R:</strong> Para garantizar que el chat sea instantáneo y no haya fricción\n<strong>T:</strong> De forma permanente, con revisión semanal"
   },
   {
-    title: "Errores y disponibilidad",
-    content: "5xx hoy: 3 | Objetivo: detectar incidencias antes de que impacten la conversión o el servicio."
+    title: "Errores y disponibilidad (Uptime)",
+    content: "<strong>S:</strong> Minimizar el número de errores de servidor reportados en los logs\n<strong>M:</strong> Reducir los errores críticos de 12 a menos de 2 por semana\n<strong>A:</strong> Depurando el timeout en /api/orders y los fallos de Stripe detectados\n<strong>R:</strong> Para asegurar la estabilidad del proceso de compra\n<strong>T:</strong> En los próximos 7 días"
   },
   {
     title: "Carga de infraestructura",
-    content: "CPU: 66% | RAM: 57% | Disco: 57% | Red: 11%. Sirve para ver si el sistema está cerca del límite."
+    content: "<strong>S:</strong> Estabilizar el consumo de memoria RAM de los servidores\n<strong>M:</strong> Bajar del 72% actual a un máximo operativo del 55%\n<strong>A:</strong> Implementando un sistema de microservicios para el procesamiento de imágenes\n<strong>R:</strong> Para evitar caídas del sistema por desbordamiento de memoria\n<strong>T:</strong> En los siguientes 20 días"
   },
   {
-    title: "Peticiones y rendimiento",
-    content: "Peticiones API: 21.0K | Rendimiento del servidor monitorizado por hora para detectar picos anómalos."
+    title: "Peticiones y rendimiento (Throughput)",
+    content: "<strong>S:</strong> Aumentar la capacidad de peticiones API procesadas simultáneamente\n<strong>M:</strong> Soportar de 12.5K a 18K peticiones sin aumentar la latencia\n<strong>A:</strong> Configurando el auto-escalado horizontal en la nube\n<strong>R:</strong> Para estar preparados para el pico de tráfico del lanzamiento de producto\n<strong>T:</strong> Antes del día 15 del próximo mes"
   },
   {
-    title: "Estado operativo",
-    content: "Servicios online, cola de pedidos y logs recientes ayudan a medir la salud real de la plataforma."
+    title: "Estado operativo (Service Recovery)",
+    content: "<strong>S:</strong> Restablecer la funcionalidad de los servicios críticos caídos\n<strong>M:</strong> Pasar el 'Email Service' de estado Down a Online\n<strong>A:</strong> Migrando el servicio de correos a un proveedor con mayor redundancia\n<strong>R:</strong> Para restaurar el flujo de notificaciones y validaciones de cuenta\n<strong>T:</strong> En las próximas 24 horas"
   }
 ]);
 </script>
@@ -224,6 +224,13 @@ const tecnicoItems = ref([
   margin-top: -1px;
   margin-bottom: 0;
   line-height: 1.55;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.kpi-content strong {
+  color: #c4b5fd;
+  font-weight: 700;
 }
 
 /* textarea */
@@ -248,8 +255,15 @@ const tecnicoItems = ref([
   color: #f3f4ff;
 }
 
-:global(.kpis-scrollable .kpis-shell p) {
+:global(.kpis-scrollable .kpis-shell .kpi-content p) {
   color: #d7dcff;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+:global(.kpis-scrollable .kpis-shell .kpi-content strong) {
+  color: #c4b5fd;
+  font-weight: 700;
 }
 
 :global(.kpis-scrollable .kpis-shell ion-accordion) {
@@ -288,6 +302,13 @@ const tecnicoItems = ref([
 
 :global(.kpis-scrollable .kpis-shell ion-accordion .kpi-content p) {
   color: #d7dcff;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+:global(.kpis-scrollable .kpis-shell ion-accordion .kpi-content strong) {
+  color: #c4b5fd;
+  font-weight: 700;
 }
 
 :global(.kpis-scrollable .kpis-shell ion-label) {

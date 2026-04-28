@@ -68,6 +68,7 @@
             <ion-card class="dark-card resource-card fill-card">
               <ion-card-header>
                 <ion-card-title>Uso de Recursos</ion-card-title>
+                <p style="font-size: 12px; color: #a8a8a8; margin: 8px 0 0 0;">RAM al 72% por procesamiento de imágenes</p>
               </ion-card-header>
 
               <ion-card-content class="resource-list">
@@ -190,9 +191,7 @@ Chart.register(
   Tooltip
 );
 
-/* ---------------------------
-   SPARKLINE CONFIG (APEX)
----------------------------- */
+
 const sparkOptions = {
   chart: {
     sparkline: { enabled: true },
@@ -212,52 +211,39 @@ const sparkOptions = {
   yaxis: { labels: { show: false } }
 };
 
-/* ---------------------------
-   VALUES (DYNAMIC)
----------------------------- */
+
 const errorsValue = ref(12);
 const onlineUsersValue = ref(239);
-const latencyValue = ref(280);
-const apiRequestsValue = ref(12500);
+const latencyValue = ref(280); 
+const apiRequestsValue = ref(12500); 
 
-/* ---------------------------
-   SPARK SERIES (APEX)
----------------------------- */
 const errorsSeries = ref([{ data: [2, 5, 3, 7, 6, 8, 9, 12] }]);
 const activeUsersSeries = ref([{ data: [120, 150, 180, 210, 200, 230, 240, 239] }]);
 const latencySeries = ref([{ data: [220, 250, 240, 280, 300, 290, 310, 280] }]);
 const apiRequestsSeries = ref([{ data: [5000, 7000, 6500, 9000, 11000, 12000, 12500, 12500] }]);
 
-/* ---------------------------
-   SERVER PERFORMANCE CHART
----------------------------- */
+
 const serverChart = ref<HTMLCanvasElement | null>(null);
 let serverChartInstance: Chart | null = null;
 
-/* ---------------------------
-   RESOURCE DATA (DYNAMIC)
----------------------------- */
+
 const resourceData = ref([
-  { name: "CPU", value: 68, color: "#60A5FA" },
-  { name: "RAM", value: 72, color: "#F59E0B" },
+  { name: "CPU", value: 58, color: "#60A5FA" },
+  { name: "RAM", value: 72, color: "#F59E0B" }, // Procesamiento de imágenes consumiendo recursos
   { name: "Disco", value: 54, color: "#22C55E" },
   { name: "Red", value: 30, color: "#F97316" }
 ]);
 
-/* ---------------------------
-   LOGS DATA
----------------------------- */
+
 const logsData = ref([
-  { type: "INFO", message: "Login correcto usuario #1023" },
-  { type: "WARN", message: "Stock bajo producto #450 (Camiseta Barça)" },
-  { type: "ERROR", message: "Pago rechazado en Stripe" },
-  { type: "ERROR", message: "Timeout en /api/orders" },
-  { type: "INFO", message: "Nuevo pedido generado #8932" }
+  { type: "ERROR", message: "Fallo en pasarela Stripe #12" },
+  { type: "ERROR", message: "Subida de foto pesada timeout (5MB+)" },
+  { type: "WARN", message: "RAM al 72% por procesamiento de imágenes" },
+  { type: "WARN", message: "Email Service caído - usuarios sin notificaciones" },
+  { type: "WARN", message: "Servicio de Envíos lento (partner logístico)" }
 ]);
 
-/* ---------------------------
-   SERVICES STATUS
----------------------------- */
+
 const servicesData = ref([
   { name: "API Orders", status: "online", statusText: "Online" },
   { name: "API Payments", status: "online", statusText: "Online" },
@@ -266,12 +252,9 @@ const servicesData = ref([
   { name: "Email Service", status: "down", statusText: "Down" }
 ]);
 
-/* ---------------------------
-   ON MOUNTED (ALL REAL TIME)
----------------------------- */
+
 onMounted(() => {
 
-  /* CHART GRANDE SERVER */
   if (serverChart.value) {
     serverChartInstance = new Chart(serverChart.value, {
       type: "line",
@@ -330,7 +313,7 @@ onMounted(() => {
     });
   }
 
-  /* INTERVAL GENERAL (SPARK + VALUES + RESOURCES) */
+  
   setInterval(() => {
 
     // Valores dinámicos
@@ -366,7 +349,7 @@ onMounted(() => {
 
   }, 3000);
 
-  /* INTERVAL PARA ACTUALIZAR EL CHART GRANDE */
+  
   setInterval(() => {
     if (!serverChartInstance) return;
 
